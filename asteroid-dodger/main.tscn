@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://da2tumv2s4uv0"]
+
+[ext_resource type="Script" uid="uid://c7ntxd3h5v0ny" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dg4030ahobie7" path="res://player.tscn" id="1_ig7tw"]
+
+[node name="main" type="Node" unique_id=1541264202]
+script = ExtResource("1_0xm2m")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1761680208]
+
+[node name="MessageLabel" type="Label" parent="CanvasLayer" unique_id=1075901585]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Dodge the Asteroids!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=805695814]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 33.0
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="StartTimer" type="Timer" parent="." unique_id=1150674877]
+wait_time = 2.0
+one_shot = true
+
+[node name="ScoreTimer" type="Timer" parent="." unique_id=1821129083]
+
+[node name="AsteroidTimer" type="Timer" parent="." unique_id=495343959]
+wait_time = 0.5
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=140452424]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.011764706, 0.015686275, 0.36862746, 1)
+
+[node name="Player" parent="." unique_id=651944147 instance=ExtResource("1_ig7tw")]
+
+[node name="StartPosition" type="Marker2D" parent="." unique_id=831788113]
+position = Vector2(400, 500)
+
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="AsteroidTimer" to="." method="_on_asteroid_timer_timeout"]
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
